@@ -7,7 +7,23 @@
 @section banner{
     <span style="font-size:xx-large"><strong>@Page.Title</strong></span>}
 <div>
-    <p>this is some text on the page</p>
+    @if (IsPost)
+    {
+
+    }
+
+    <form id="EX01" method="post"></form>
+    <div class="row">
+        <div class="col-md-3">
+            <p>Customer Name:</p>
+            <input type="text"/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-9">
+
+        </div>
+    </div>
 </div>
 @section footer{
     <p>&copy CPSC1517, Nait Today's date is @DateTime.Today.ToLongDateString().</p> }
