@@ -1,5 +1,7 @@
 ﻿@{
-    var customerName = Request.Form["CustomerName"];
+    var customerName = Request.Form["customer"];
+    var theButton = Request.Form["theButton"];
+    string choices = "";
 }
 @{
     Layout = "~/_Layout.cshtml";
@@ -13,25 +15,54 @@
 <div>
     @if (IsPost)
     {
-
+        choices = Request.Form["foodGroup"];
+        if (theButton.Equals("reset"))
+        {
+            customerName = "";
+            choices = "";
+        }
+        else
+        {
+            if (string.IsNullOrEmpty(customerName))
+            {
+                <p style="color:firebrick">Please enter a name.</p>
+            }
+            else if (choices.IsEmpty())
+            {
+                <p style="color:firebrick">Please choose a menu item.</p>
+            }
+            else
+            {
+                var choicesArray = choices.Split(',');
+                <p>
+                    Thank you for coming @customerName. You have ordered these menu items:
+                    <ul>
+                        @foreach (var selections in choices.Split(','))
+                        {
+                            <li>@selections</li>
+                        }
+                    </ul>
+                </p>
+            }
+        }
     }
 
     <form id="EX01" method="post">
         <div class="row">
             <div class="col-md-3 form-group">
                 <p>Customer Name:</p>
-                <input type="text" name="Customer" />
+                <input type="text" id="customer" name="customer" value="@customerName" />
             </div>
             <div class="col-md-9 form-group">
                 <label>Choose your meal items</label><br />
-                <input type="checkbox" value="Steak" /> Steak<br />
-                <input type="checkbox" value="Seafood" /> Seafood<br />
-                <input type="checkbox" value="Vegetables" /> Vegetables<br />
+                <input type="checkbox" id="foodGroup" name="foodGroup" value="Steak" /> Steak<br />
+                <input type="checkbox" id="foodGroup" name="foodGroup" value="Seafood" /> Seafood<br />
+                <input type="checkbox" id="foodGroup" name="foodGroup" value="Vegetables" /> Vegetables<br />
             </div>
         </div>
         <div class="row">
-            <input type="submit" class="btn" value="Submit" />
-            <input type="submit" class="btn" value="Reset" />
+            <input type="submit" id="theButton" name="theButton" value="submit" class="btn btn-primary" />
+            <input type="submit" id="theButton" name="theButton" value="reset" class="btn" />
         </div>
     </form>
 </div>
